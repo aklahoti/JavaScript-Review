@@ -7,7 +7,9 @@ first(names, function(firstName){
   console.log('The first name in names is ', firstName)
 });
 
-
+function first(myArray, cb) {
+    return cb(myArray[0]);
+}
 
 
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
@@ -19,6 +21,11 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 last(names, function(lastName){
   console.log('The last name in names is ', lastName);
 });
+
+function last(myArray, cb) {
+  var x = myArray.length - 1;
+  return cb(myArray[x]);
+}
 
 
 
@@ -37,6 +44,14 @@ contains('Colt', names, function(yes){
   }
 });
 
+function contains(str, myArray, cb) {
+  if (myArray.indexOf(str) !== -1) {
+    return cb(true);
+  }
+  else {
+    return cb(false);
+  }
+}
 
 
 
@@ -52,8 +67,15 @@ map(numbers, function(num){
 });
 
 
+function map(myArray, cb) {
+  var newArr = [];
+  for(var i = 0; i < myArray.length; i++) {
+    newArr.push(myArray[i]);
+  }
+  return cb(newArr);
+}
 
-
+//still need to finish
 /* NEXT PROBLEM - NEXT PROBLEM - NEXT PROBLEM */
 
 
@@ -64,6 +86,18 @@ uniq(names, function(uniqArr){
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
 });
 
+function uniq(nameArray, cb) {
+  var newObj = {};
+  var newArr = [];
+  nameArray.forEach(function(item) {
+    newObj[item] = item;
+  });
+
+  for (var key in newObj) {
+    newArr.push(key);
+  }
+  return cb(newArr);
+}
 
 
 
@@ -76,6 +110,13 @@ var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 each(names, function(item, indice){
   console.log('The item in the ' + indice + 'position is ' + item)
 });
+
+
+function each(nameArray, cb) {
+ for (var i = 0; i < nameArray.length; i++) {
+     return cb(i, nameArray[i]);
+ }
+}
 
 
 
@@ -109,6 +150,14 @@ getUserById('16t', users, function(user){
   console.log('The user with the id 16t has the email of ' + user.email + 'the name of ' + user.name + ' and the address of ' + user.address); 
 });
 
+function getUserById(id, userObj, cb) {
+  for (var key in userObj) {
+    if (userObj[key].id === id) {
+      return cb(userObj[key]);
+    }
+  }
+}
+
 
 
 
@@ -122,3 +171,11 @@ var numbers  = [1, 2, 3, 4, 5, 6];
 find(numbers, function(num){ 
   return num % 2 == 0; //should return 2
 })
+
+function find(numArray, cb) {
+  for (var i = 0; i < numArray.length; i++) {
+    if (numArray[i] % 2 === 0) {
+      return cb(numArray[i]);
+    }
+  }
+}
